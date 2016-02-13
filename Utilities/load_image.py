@@ -38,10 +38,6 @@ def load_image(name, path='Pictures', alpha_channel=False):
             print("Cannot load image:", name)
             return 0
 
-        w = 2
-        h = 2
-        surface = display.set_mode((w, h))
-
         if alpha_channel:
             picture.convert_alpha()
         else:

@@ -36,7 +36,7 @@ class PyMain:
         self.render_list.remove(obj)
 
     def addEventListener(self, obj, event_type):
-        pass
+        raise "Change me"
 
     def mainloop(self, hero, fps=FPS):
         """This is the Main Loop of the Game"""
