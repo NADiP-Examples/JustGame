@@ -2,6 +2,7 @@
 from Classes.StaticObject import StaticObject
 import json
 import os
+import pygame
 
 
 def map_loader(json_map, objects_descr):
@@ -23,19 +24,21 @@ def map_loader(json_map, objects_descr):
                     height = False
 
         new_obj = StaticObject(x, y, picture, height=height)
-        print(new_obj.image)
 
         obj_list.append(new_obj)
+        return obj_list
 
 
-f = open(os.path.join('Maps', 'test_map.json'))
+if __name__ == '__main__':
+    s = pygame.display.set_mode((2, 2))
+    f = open(os.path.join('Maps', 'test_map.json'))
 
-map = json.loads(f.read())
+    map = json.loads(f.read())
 
-f2 = open(os.path.join('Descriptions', 'objects.json'))
-obj_descr = json.loads(f2.read())
+    f2 = open(os.path.join('Descriptions', 'objects.json'))
+    obj_descr = json.loads(f2.read())
 
-map_loader(map, obj_descr)
+    objs = map_loader(map, obj_descr)
 
-f.close()
-f2.close()
+    f.close()
+    f2.close()

@@ -1,10 +1,10 @@
 import pygame
-import tkinter as tk
-from tkinter import *
 import os
-import platform
+import sys
+from pgu import gui
 from Utilities.sorting import *
 from Classes.Camera import Camera
+from Utilities.map_loader import map_loader
 
 FPS = 40
 BACKGROUND_COLOR = (0, 0, 0)
@@ -13,6 +13,7 @@ WIN_HEIGHT = 600
 DISPLAY = (800, 600)
 
 
+# Пока не используется
 def camera_configure(camera, target_rect):
     l, t, _, _ = target_rect
     _, _, w, h = camera
@@ -26,50 +27,33 @@ def camera_configure(camera, target_rect):
     return pygame.Rect(l, t, w, h)
 
 
-root = tk.Tk()
-
-
-def destr():
-    root.destroy()
-
-
-but = tk.Button(root, text="OK", command=destr)
-but.pack(side=BOTTOM)
-root.mainloop()
-
-root = tk.Tk()
-
-embed = tk.Frame(root, width=800, height=600)
-embed.grid(columnspan=2000, rowspan=600)  # Adds grid
-embed.pack(side=LEFT)  # packs window to the left
-
-os.environ['SDL_WINDOWID'] = str(embed.winfo_id())
-if platform == "Windows":
-    os.environ['SDL_VIDEODRIVER'] = 'windib'
-
-screen = pygame.display.set_mode((2000, 600))
+screen = pygame.display.set_mode((600, 600))
 screen.fill(pygame.Color(0, 0, 0))
-pygame.display.init()
-pygame.display.update()
+rect_pgu = pygame.Rect(50, 50, 300, 100)
 
-menubar = Menu(root)
+btn_click = gui.Button("Click Me")
+btn_ok = gui.Button("Ok")
+data = [
+        ('File/Save', None, None),
+        ('File/New', None, None),
+        ('Edit/Copy', None, None),
+        ('Edit/Cut', None, None),
+        ('Help/About', None, None),
+        ('Help/Reference', None, None),
+        ]
+menu = gui.Menus(data)
 
+table = gui.Table()
+table.td(menu)
+table.tr()
+table.td(btn_click)
+table.tr()
+table.td(btn_ok)
 
-def hello():
-    # Заглушка
-    print("hello!")
+app = gui.App()
 
+app.init(widget=table, screen=screen, area=rect_pgu)
 
-# create a pulldown menu, and add it to the menu bar
-filemenu = Menu(menubar, tearoff=0)
-filemenu.add_command(label="Open", command=hello)
-filemenu.add_command(label="Save", command=hello)
-filemenu.add_separator()
-filemenu.add_command(label="Exit", command=root.quit)
-menubar.add_cascade(label="File", menu=filemenu)
-
-# display the menu
-root.config(menu=menubar)
 
 render_list = []
 none_render_list = []
@@ -86,11 +70,11 @@ while True:
         if e.type == pygame.QUIT:
             sys.exit()
 
-    root.update()
     pygame.display.update()
 
     dt = clock.tick(FPS)
     screen.fill(BACKGROUND_COLOR)
+    app.paint()
 
     for obj in render_list:
         obj.update(dt)

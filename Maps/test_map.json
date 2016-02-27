@@ -3,6 +3,6 @@
     "index" : 1,
     "type" : "object",
     "name" : "front_locker",
-    "pos" : "(100, 100)"
+    "pos" : [100, 100]
   }
 ]

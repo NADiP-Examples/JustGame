@@ -17,8 +17,6 @@ def load_image(names, path='Pictures', alpha_channel=False):
                 print("Cannot load image:", n)
                 return 0
 
-            surface = display.set_mode((2, 2))
-
             if alpha_channel:
                 picture.convert_alpha()
             else:
@@ -35,8 +33,6 @@ def load_image(names, path='Pictures', alpha_channel=False):
         except error:  # Если картинки нет на месте
             print("Cannot load image:", names)
             return 0
-
-        surface = display.set_mode((2, 2))
 
         if alpha_channel:
             picture.convert_alpha()

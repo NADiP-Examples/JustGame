@@ -2,26 +2,27 @@ from pygame import *
 from Utilities.load_image import load_image
 from Utilities.animation import Animation
 
-
-MOVE_SPEED = 3  # убать
-# GRAY = "#888888"
-# FPS = 30
-LEFT_SPRITES = load_image(['1.png', '2.png', '3.png', '4.png', '5.png', '6.png', '7.png', '8.png'], alpha_channel=True)
-RIGHT_SPRITES = load_image(['1.1.png', '2.1.png', '3.1.png', '4.1.png',
-                            '5.1.png', '6.1.png', '7.1.png', '8.1.png'], alpha_channel=True)
-UP_SPRITES = load_image('1.png', alpha_channel=True)
-# UP_SPRITES = load_image(['1.png'], alpha_channel=True)
-DOWN_SPRITES = load_image('1.1.png', alpha_channel=True)
-LEFT_STOP_SPRITES = load_image('1.png', alpha_channel=True)
-RIGHT_STOP_SPRITES = load_image('1.1.png', alpha_channel=True)
-
 LEFT = 1
 RIGHT = 2
+MOVE_SPEED = 3  # убать
+
+
+def load_souces():
+    global LEFT_SPRITES, RIGHT_SPRITES, UP_SPRITES, DOWN_SPRITES, LEFT_STOP_SPRITES, RIGHT_STOP_SPRITES
+    LEFT_SPRITES = load_image(['1.png', '2.png', '3.png', '4.png', '5.png', '6.png', '7.png', '8.png'], alpha_channel=True)
+    RIGHT_SPRITES = load_image(['1.1.png', '2.1.png', '3.1.png', '4.1.png',
+                                '5.1.png', '6.1.png', '7.1.png', '8.1.png'], alpha_channel=True)
+    UP_SPRITES = load_image('1.png', alpha_channel=True)
+    # UP_SPRITES = load_image(['1.png'], alpha_channel=True)
+    DOWN_SPRITES = load_image('1.1.png', alpha_channel=True)
+    LEFT_STOP_SPRITES = load_image('1.png', alpha_channel=True)
+    RIGHT_STOP_SPRITES = load_image('1.1.png', alpha_channel=True)
 
 
 class Player(sprite.Sprite):
     def __init__(self, x, y):
         sprite.Sprite.__init__(self)
+        load_souces()
         self.image = None
         self.xvel = MOVE_SPEED
         self.yvel = MOVE_SPEED
