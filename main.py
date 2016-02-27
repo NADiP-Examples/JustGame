@@ -16,7 +16,7 @@ HERO_POSITION_Y = 300
 pygame.init()
 
 hero = Player(HERO_POSITION_X, HERO_POSITION_Y)
-locker = StaticObject(200, 200, 24, 'lockerx2.png')
+locker = StaticObject(200, 200, 'lockerx2.png', height=24)
 
 main = PyMain(width=WIN_WIDTH, height=WIN_HEIGHT)
 main.add_render_object(locker)

@@ -1,0 +1,21 @@
+[
+  {
+    "name" : "front_locker",
+    "image" : "lockerx2.png",
+    "height" : "24"
+  },
+  {
+    "name": "side_locker",
+    "image" : "side_locker.png",
+    "height" : ""
+  },
+  {
+    "name" : "chest",
+    "image" : "chest.png",
+    "height" : ""
+  },
+  {
+    "name" : "carpet",
+    "image" : "carpet.png"
+  }
+]

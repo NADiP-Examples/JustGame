@@ -4,11 +4,11 @@ import os
 init()
 
 
-def load_image(name, path='Pictures', alpha_channel=False):
+def load_image(names, path='Pictures', alpha_channel=False):
     pictures = []
 
-    if type(name) == list:
-        for n in name:
+    if type(names) == list:
+        for n in names:
             fullname = os.path.join(path, n)
 
             try:
@@ -17,9 +17,7 @@ def load_image(name, path='Pictures', alpha_channel=False):
                 print("Cannot load image:", n)
                 return 0
 
-            w = 2
-            h = 2
-            surface = display.set_mode((w, h))
+            surface = display.set_mode((2, 2))
 
             if alpha_channel:
                 picture.convert_alpha()
@@ -27,16 +25,18 @@ def load_image(name, path='Pictures', alpha_channel=False):
                 picture.convert()
 
             pictures.append(picture)
-
         return pictures
 
     else:
-        fullname = os.path.join(path, name)
+        fullname = os.path.join(path, names)
+        print(fullname)
         try:
             picture = image.load(fullname)  # Загружаем картинку и сохраняем поверхность (Surface)
         except error:  # Если картинки нет на месте
-            print("Cannot load image:", name)
+            print("Cannot load image:", names)
             return 0
+
+        surface = display.set_mode((2, 2))
 
         if alpha_channel:
             picture.convert_alpha()
@@ -48,4 +48,5 @@ def load_image(name, path='Pictures', alpha_channel=False):
 if __name__ == '__main__':
     w = 640
     h = 480
-    surface = pygame.display.set_mode((w, h))
+    surface = display.set_mode((w, h))
+    pic = load_image('1.png')
