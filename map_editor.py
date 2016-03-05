@@ -1,6 +1,7 @@
 import pygame
 import os
 import sys
+import json
 from pgu import gui
 from Utilities.sorting import *
 from Classes.Camera import Camera
@@ -27,12 +28,26 @@ def camera_configure(camera, target_rect):
     return pygame.Rect(l, t, w, h)
 
 
+# Загрузка и обработка json-карты
+f = open(os.path.join('Maps', 'test_map.json'))
+
+map = json.loads(f.read())
+
+f2 = open(os.path.join('Descriptions', 'objects.json'))
+obj_descr = json.loads(f2.read())
+
+objs, back, start_pos = map_loader(map, obj_descr)
+
+f.close()
+f2.close()
+
+
 screen = pygame.display.set_mode((600, 600))
 screen.fill(pygame.Color(0, 0, 0))
-rect_pgu = pygame.Rect(50, 50, 300, 100)
 
-btn_click = gui.Button("Click Me")
-btn_ok = gui.Button("Ok")
+
+rect_pgu = pygame.Rect(0, 0, 300, 100)
+
 data = [
         ('File/Save', None, None),
         ('File/New', None, None),
@@ -42,29 +57,24 @@ data = [
         ('Help/Reference', None, None),
         ]
 menu = gui.Menus(data)
-
 table = gui.Table()
 table.td(menu)
-table.tr()
-table.td(btn_click)
-table.tr()
-table.td(btn_ok)
-
 app = gui.App()
-
 app.init(widget=table, screen=screen, area=rect_pgu)
 
 
-render_list = []
+render_list = objs  # Список словарей с объектами и их функциями (если нет функции - None)
 none_render_list = []
 clock = pygame.time.Clock()
 
 # camera = Camera(camera_configure, total_level_width, total_level_height)
 
+
 while True:
     for e in pygame.event.get():
+        app.event(e)
         for obj in render_list:
-            obj.event(e)
+            obj["object"].event(e)
         for obj in none_render_list:
             obj.event(e)
         if e.type == pygame.QUIT:
@@ -74,12 +84,14 @@ while True:
 
     dt = clock.tick(FPS)
     screen.fill(BACKGROUND_COLOR)
-    app.paint()
 
     for obj in render_list:
-        obj.update(dt)
+        obj["object"].update(dt)
 
     sort_by_y(render_list)
 
     for obj in render_list:
-        obj.render(screen)
+        obj["object"].render(screen)
+
+    app.paint()
+    pygame.display.flip()

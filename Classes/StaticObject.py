@@ -8,8 +8,11 @@ class StaticObject(sprite.Sprite):
         self.image = load_image(picture, alpha_channel=True)
         if height:
             self.rect = Rect(x, y, self.image.get_rect().width, height)
+            self.area = Rect((x + 10), (y + 10), (self.image.get_rect().width + 10), (height + 10))
         else:
             self.rect = False
+            self.area = Rect((x + 10), (y + 10), (self.image.get_rect().width + 10),
+                             (self.image.get_rect().height + 10))
             self.pos = (x, y)
 
     def update(self, dt):
