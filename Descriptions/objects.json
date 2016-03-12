@@ -10,6 +10,10 @@
     "height" : ""
   },
   {
+    "name": "NPC",
+    "image": ["1.png"]
+  },
+  {
     "name" : "chest",
     "image" : ["opened_chest.png", "closed_chest.png"],
     "height" : ""

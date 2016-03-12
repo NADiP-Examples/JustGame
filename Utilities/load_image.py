@@ -5,6 +5,7 @@ init()
 
 
 def load_image(names, path='Pictures', alpha_channel=False):
+    # Вызывать после инициации окна pygame
     pictures = []
 
     if type(names) == list:

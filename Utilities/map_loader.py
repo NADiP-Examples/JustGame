@@ -1,5 +1,6 @@
 # from tkinter import *
 from Classes.StaticObject import StaticObject
+from Utilities.load_image import load_image
 import json
 import os
 import pygame
@@ -19,9 +20,10 @@ def map_loader(json_map, objects_descr):
             start_pos = dic["start_player_pos"]
 
         if dic["type"] == "background":
-            x = y = 0
-            image = dic["image"]
-            back = StaticObject(x, y, image)
+            # x = y = 0
+            # image = dic["image"]
+            # back = StaticObject(x, y, image)
+            back = load_image(dic["image"])
 
         if dic["type"][0] == "object":
             x = dic['pos'][0]
