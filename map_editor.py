@@ -1,13 +1,13 @@
 import pygame
-import tkinter
-import os
-import sys
+# import tkinter
+# import os
+# import sys
 import json
-import threading
+# import threading
 from pgu import gui
 from Utilities.sorting import *
 from Utilities.menu_functions import *
-from Classes.Camera import Camera
+# from Classes.Camera import Camera
 from Utilities.map_loader import map_loader
 
 FPS = 40
@@ -15,6 +15,11 @@ BACKGROUND_COLOR = (0, 0, 0)
 WIN_WIDTH = 800
 WIN_HEIGHT = 600
 DISPLAY = (800, 600)
+
+
+def on_file_open(file):
+    data = json.load(file)
+    print(data)
 
 
 def hello(message):
@@ -40,7 +45,7 @@ screen.fill(pygame.Color(100, 100, 100))
 
 rect_pgu = pygame.Rect(0, 0, 300, 100)
 
-open_dialog = OpenDialog()
+open_dialog = OpenDialog(on_file_open)
 
 data = [
         ('File/Open', open_dialog.open, None),
@@ -73,7 +78,6 @@ objs, back, start_pos = map_loader(map, obj_descr)
 f.close()
 f2.close()
 
-
 render_list = objs  # Список словарей с объектами и их функциями (если нет функции - None)
 none_render_list = []
 clock = pygame.time.Clock()
@@ -82,7 +86,7 @@ clock = pygame.time.Clock()
 
 
 while True:
-    map_address = open_dialog.value
+    # map_address = open_dialog.file_name
     for e in pygame.event.get():
         app.event(e)
         for obj in render_list:
@@ -92,12 +96,12 @@ while True:
         if e.type == pygame.QUIT:
             sys.exit()
 
-    if open_dialog.value and open_dialog.value != map_address:
-        # Попытка сделать открытие json-карты
-        f = open(open_dialog.value)
-        map = json.loads(f.read())
-        objs, back, start_pos = map_loader(map, obj_descr)
-        f.close()
+    # if open_dialog.value and open_dialog.value != map_address:
+    # # Попытка сделать открытие json-карты
+    #     f = open(open_dialog.value)
+    #     map = json.loads(f.read())
+    #     objs, back, start_pos = map_loader(map, obj_descr)
+    #     f.close()
 
     pygame.display.update()
 
